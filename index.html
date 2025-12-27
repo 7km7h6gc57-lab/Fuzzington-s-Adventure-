@@ -45,19 +45,21 @@
             background-position: center;
             z-index: 1;
             filter: brightness(0.6);
+            transition: background-image 0.5s ease-in-out;
         }
 
         .content-overlay {
             position: relative;
             z-index: 10;
             max-width: 800px;
-            padding: 2.5rem;
+            padding: 2rem;
             text-align: center;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(12px);
-            border-radius: 2.5rem;
+            border-radius: 2rem;
             border: 1px solid rgba(255,255,255,0.15);
             margin: 1rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .fuzz-power {
@@ -94,32 +96,6 @@
         .nav-btn:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.1); }
         .nav-btn:disabled { opacity: 0.2; cursor: not-allowed; filter: grayscale(1); }
 
-        .art-prompt {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: rgba(0,0,0,0.85);
-            color: #fbbf24;
-            padding: 0.75rem;
-            font-size: 0.75rem;
-            border-radius: 0.75rem;
-            max-width: 250px;
-            z-index: 50;
-            opacity: 0.4;
-            pointer-events: none;
-            line-height: 1.4;
-        }
-
-        .option-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            padding: 1rem;
-            border-radius: 1rem;
-            font-weight: 700;
-            transition: all 0.2s;
-        }
-        .option-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: #fbbf24; }
-
         .progress-indicator {
             position: fixed;
             top: 2rem;
@@ -131,6 +107,16 @@
             font-weight: bold;
             font-size: 0.9rem;
         }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem;
+            border-radius: 1rem;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .option-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: #fbbf24; }
     </style>
 </head>
 <body>
@@ -146,73 +132,73 @@
             {
                 phase: "The Ordinary World",
                 title: "The Golden Song",
-                text: "Fuzzington was a tiny ball of golden fluff. In the Kingdom of Paz, he spent his days listening to his father, Heshima, sing the songs that kept the world bright. Fuzzington was clumsy and a little bit shy, but he was always happy.",
-                art: "Warm, sunset-colored valley. Fuzzington looking up at the regal Heshima. High saturation, cozy feeling.",
+                text: "Fuzzington was a tiny ball of golden fluff. In the Kingdom of Paz, he spent his days listening to his father, Heshima, sing the songs that kept the world bright.",
+                image: "https://r.jina.ai/i/664f2603f00a4060b24081c7e2b8398e",
                 bgColor: "linear-gradient(to bottom, #4ade80, #166534)"
             },
             {
                 phase: "The Call to Adventure",
                 title: "A Sudden Silence",
-                text: "One morning, the song stopped. Lady Hofu, the Golden Langur who had grown jealous of the music, cast a spell of fear from the highest trees. The valley turned grey. 'Fuzzington,' Heshima whispered, 'the Ny-Gumi plant in Magum is the only cure. You must find it.'",
-                art: "A Golden Langur (Lady Hofu) with a cold, glowing stare sitting atop a gnarled tree. The valley below is turning grey and dusty.",
+                text: "One morning, the song stopped. Lady Hofu, the Golden Langur, cast a spell of fear from the highest trees. 'Fuzzington,' Heshima whispered, 'you must find the Ny-Gumi plant.'",
+                image: "https://r.jina.ai/i/a9522197825345718a7c29be0877995a",
                 bgColor: "linear-gradient(to bottom, #64748b, #1e293b)"
             },
             {
                 phase: "Crossing the Threshold",
                 title: "The First Step",
-                text: "Fuzzington reached the edge of the Whispering Woods. Lady Hofu's shadow-mist hung thick in the air. He was scared, and his knees knocked together, but he thought of his father and stepped into the purple mist. 'I'm going to be brave,' he whispered.",
-                art: "Fuzzington at the edge of a gnarled, dark forest. Contrast between the grey path and the deep purple woods.",
+                text: "Fuzzington reached the edge of the Whispering Woods. He was scared, but he thought of his father and stepped into the purple mist.",
+                image: "https://r.jina.ai/i/44be71676641477196014e76a6617a61",
                 bgColor: "linear-gradient(to bottom, #2e1065, #0f172a)"
             },
             {
                 phase: "The Trial of Vision",
                 title: "Eyes in the Dark",
-                text: "The woods were pitch black! Fuzzington kept bumping into trees. Then, a Reindeer with glowing antlers appeared. 'To see in the dark, you must look with your heart,' the Reindeer said.",
+                text: "The woods were pitch black! A Reindeer with glowing antlers appeared. 'To see in the dark, you must look with your heart,' the Reindeer said.",
+                image: "https://r.jina.ai/i/78a9947814b745499252c80324836f33",
                 question: "What color do Reindeer eyes turn in winter to help them see in the dark?",
                 options: ["Deep Blue", "Bright Pink"],
                 correct: 0,
                 fact: "Reindeer eyes actually change color from gold to blue to capture more light in the winter!",
-                power: "Night Vision! 👁️",
-                art: "Glowing blue antlers lighting up a dark scene. Fuzzington's eyes begin to glow with a soft blue light."
+                power: "Night Vision! 👁️"
             },
             {
                 phase: "The Trial of Heat",
                 title: "The Frozen Pass",
-                text: "A blizzard began to howl. Fuzzington shivered in the cold. A great Polar Bear rumbled, 'The sun's warmth is stored inside us, little one. You just have to find it.'",
+                text: "A blizzard began to howl. A great Polar Bear rumbled, 'The sun's warmth is stored inside us, little one. You just have to find it.'",
+                image: "https://r.jina.ai/i/4638d1d8199b4d819129e92404b93478",
                 question: "What color is a Polar Bear's skin underneath all that white fur?",
                 options: ["Pink", "Black"],
                 correct: 1,
                 fact: "Polar bears have black skin! It helps them soak up the sun's warmth like a dark t-shirt.",
-                power: "Inner Warmth! ☀️",
-                art: "Fuzzington leaning against a massive, comforting white bear in a snowstorm. A warm glow spreads through his fur."
+                power: "Inner Warmth! ☀️"
             },
             {
                 phase: "The Trial of Shadows",
                 title: "The Fox's Trick",
-                text: "Lady Hofu's shadow-guards were blocking the path! Fuzzington needed to get past them without a fight. A Marble Fox giggled from the bushes. 'A clever voice is better than a loud one!'",
+                text: "Shadow-guards blocked the path! A Marble Fox giggled from the bushes. 'A clever voice is better than a loud one!'",
+                image: "https://r.jina.ai/i/917966f9a0f04f869a4f48b0a519890f",
                 question: "Can a Marble Fox make a giggling sound to distract their enemies?",
                 options: ["Yes, they giggle!", "No, they only bark"],
                 correct: 0,
                 fact: "Foxes can make over 40 different sounds, including a giggle, a bark, and even a scream!",
-                power: "Multi-Voice! 🗣️",
-                art: "Fuzzington and a fox hiding in bushes. The fox is throwing its voice to lead guards away."
+                power: "Multi-Voice! 🗣️"
             },
             {
                 phase: "The Climax",
                 title: "The Sovereign of the Skies",
-                text: "At last, Fuzzington reached the Peak of Magum. Jasiri, the mighty Harpy Eagle, landed with a thunderous flap. 'I guard the cure from those who fear the heights,' she screeched. Fuzzington didn't flinch. He looked at her giant talons with respect.",
-                question: "Jasiri is the most powerful eagle. How large can a Harpy Eagle's talons grow?",
+                text: "At last, Fuzzington reached the Peak of Magum. Jasiri, the mighty Harpy Eagle, landed with a thunderous flap. 'I guard the cure from those who fear the heights!'",
+                image: "https://r.jina.ai/i/2088737c02b740579e0a0d9a69123891",
+                question: "How large can a Harpy Eagle's talons grow?",
                 options: ["As big as a Grizzly Bear's claws", "As small as a kitten's"],
                 correct: 0,
                 fact: "Harpy Eagle talons can be up to 5 inches long—that's as big as a Grizzly Bear's claws!",
-                power: "The Ny-Gumi Plant! 🌿",
-                art: "A massive, majestic Harpy Eagle (Jasiri) with a crown of feathers and giant talons. Fuzzington stands tall before her."
+                power: "The Ny-Gumi Plant! 🌿"
             },
             {
                 phase: "Resolution",
                 title: "The Song Returns",
-                text: "Fuzzington raced home and gave the plant to Heshima. The Golden Song burst across the valley, breaking Lady Hofu's spell. The Langur fled back to the highest peaks, and Fuzzington was home—no longer just a ball of fluff, but the Hero of Paz.",
-                art: "Heshima and Fuzzington embracing. The valley is erupting in vibrant colors. Happy, warm, and triumphant.",
+                text: "Fuzzington gave the plant to Heshima. The Golden Song burst across the valley, breaking Lady Hofu's spell. Fuzzington was home and the world was bright once more!",
+                image: "https://r.jina.ai/i/208bb8b6630740a383827ec56c7504e7", // Resolution Image
                 bgColor: "linear-gradient(to bottom, #fde047, #ea580c)"
             }
         ];
@@ -229,23 +215,20 @@
             
             const bg = document.createElement('div');
             bg.className = 'illustration-bg';
-            bg.style.background = data.bgColor || 'linear-gradient(to bottom, #1e293b, #020617)';
+            bg.style.backgroundImage = `url('${data.image}')`;
+            bg.style.backgroundColor = '#1a1a1a';
             
-            const artPrompt = document.createElement('div');
-            artPrompt.className = 'art-prompt';
-            artPrompt.innerHTML = "<strong>ART DIRECTION:</strong><br>" + data.art;
-
             const content = document.createElement('div');
             content.className = 'content-overlay';
             
             let interactiveHTML = '';
             if (data.question) {
                 interactiveHTML = `
-                    <div id="quiz-box" class="mt-8 bg-white/5 p-6 rounded-2xl border border-white/10">
-                        <p class="text-yellow-400 font-bold text-lg mb-4">⭐ Help Fuzzington: ${data.question}</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div id="quiz-box" class="mt-6 bg-white/5 p-5 rounded-xl border border-white/10">
+                        <p class="text-yellow-400 font-bold text-base mb-3">⭐ Help Fuzzington: ${data.question}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             ${data.options.map((opt, i) => `
-                                <button onclick="handleAnswer(${i})" class="option-btn text-white">
+                                <button onclick="handleAnswer(${i})" class="option-btn text-white text-sm">
                                     ${opt}
                                 </button>
                             `).join('')}
@@ -255,21 +238,20 @@
             }
 
             content.innerHTML = `
-                <p class="text-xs font-black tracking-[0.2em] text-yellow-500 uppercase mb-3">${data.phase}</p>
-                <h1 class="story-heading text-4xl md:text-6xl mb-6 text-white leading-tight">${data.title}</h1>
-                <p class="text-lg md:text-2xl leading-relaxed text-gray-200 font-medium">${data.text}</p>
+                <p class="text-xs font-black tracking-[0.2em] text-yellow-500 uppercase mb-2">${data.phase}</p>
+                <h1 class="story-heading text-3xl md:text-5xl mb-4 text-white leading-tight">${data.title}</h1>
+                <p class="text-base md:text-xl leading-relaxed text-gray-200">${data.text}</p>
                 <div id="reward-zone"></div>
                 ${interactiveHTML}
             `;
 
             page.appendChild(bg);
-            page.appendChild(artPrompt);
             page.appendChild(content);
             container.appendChild(page);
 
             document.getElementById('progress').innerText = `${currentPage + 1} / ${story.length}`;
             document.getElementById('prevBtn').style.display = currentPage === 0 ? 'none' : 'block';
-            document.getElementById('nextBtn').innerText = currentPage === 0 ? 'Start Quest' : (currentPage === story.length - 1 ? 'Read Again' : 'Next Chapter');
+            document.getElementById('nextBtn').innerText = currentPage === 0 ? 'Start Quest' : (currentPage === story.length - 1 ? 'Read Again' : 'Next');
             
             const nextBtn = document.getElementById('nextBtn');
             nextBtn.disabled = !!data.question;
@@ -282,14 +264,11 @@
                 const zone = document.getElementById('reward-zone');
                 zone.innerHTML = `
                     <div class="fuzz-power">
-                        <div class="text-sm uppercase tracking-widest opacity-80 mb-1">Success!</div>
-                        <div class="text-2xl mb-2">${data.power}</div>
-                        <div class="text-sm font-normal italic leading-tight text-white/90">"${data.fact}"</div>
+                        <div class="text-xl mb-1">${data.power}</div>
+                        <div class="text-xs font-normal italic leading-tight text-white/90">"${data.fact}"</div>
                     </div>
                 `;
                 document.getElementById('nextBtn').disabled = false;
-            } else {
-                alert("The spirit of Paz says: Try again! Look closer at the animal's secret.");
             }
         };
 
