@@ -38,43 +38,44 @@
             justify-content: center;
         }
 
-        /* Illustration Background Layer */
         .illustration-bg {
             position: absolute;
             inset: 0;
             background-size: cover;
             background-position: center;
             z-index: 1;
-            filter: brightness(0.7);
+            filter: brightness(0.6);
         }
 
-        /* Text Layer */
         .content-overlay {
             position: relative;
             z-index: 10;
             max-width: 800px;
-            padding: 2rem;
+            padding: 2.5rem;
             text-align: center;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(8px);
-            border-radius: 2rem;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(12px);
+            border-radius: 2.5rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            margin: 1rem;
         }
 
         .fuzz-power {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: gold;
-            color: black;
-            font-weight: bold;
-            border-radius: 99px;
-            margin-top: 1rem;
+            display: block;
+            padding: 1rem;
+            background: #fbbf24;
+            color: #451a03;
+            font-weight: 800;
+            border-radius: 1.5rem;
+            margin-top: 1.5rem;
             animation: bounce 2s infinite;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+            text-align: center;
         }
 
         @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .nav-btn {
@@ -86,32 +87,56 @@
             font-size: 1.25rem;
             cursor: pointer;
             z-index: 100;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .btn-next { right: 2rem; background: var(--paz-green); color: #064e3b; }
-        .btn-prev { left: 2rem; background: rgba(255,255,255,0.2); color: white; }
+        .btn-next { right: 2rem; background: var(--paz-green); color: #064e3b; box-shadow: 0 4px 14px 0 rgba(74, 222, 128, 0.39); }
+        .btn-prev { left: 2rem; background: rgba(255,255,255,0.1); color: white; backdrop-filter: blur(4px); }
+        .nav-btn:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.1); }
+        .nav-btn:disabled { opacity: 0.2; cursor: not-allowed; filter: grayscale(1); }
 
-        /* Art Director's Tooltips */
         .art-prompt {
             position: absolute;
             top: 1rem;
             left: 1rem;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             color: #fbbf24;
-            padding: 0.5rem;
-            font-size: 0.7rem;
-            border-radius: 0.5rem;
-            max-width: 200px;
+            padding: 0.75rem;
+            font-size: 0.75rem;
+            border-radius: 0.75rem;
+            max-width: 250px;
             z-index: 50;
-            opacity: 0.3;
+            opacity: 0.4;
+            pointer-events: none;
+            line-height: 1.4;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 1rem;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .option-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: #fbbf24; }
+
+        .progress-indicator {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 100;
+            background: rgba(0,0,0,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 99px;
+            font-weight: bold;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-    <div id="master-container" class="page-container">
-        <!-- Pages will be injected here -->
-    </div>
+    <div id="master-container" class="page-container"></div>
+    <div id="progress" class="progress-indicator"></div>
 
     <button id="prevBtn" class="nav-btn btn-prev" onclick="changePage(-1)" style="display:none">Back</button>
     <button id="nextBtn" class="nav-btn btn-next" onclick="changePage(1)">Begin</button>
@@ -119,72 +144,76 @@
     <script>
         const story = [
             {
-                phase: "Ordinary World",
-                title: "The Golden Song of Paz",
-                text: "Fuzzington was small, very fluffy, and a little bit clumsy. In the Kingdom of Paz, he spent his days chasing sun-butterflies and listening to his father, Heshima, sing the songs of harmony.",
-                art: "A vibrant, sun-drenched valley. Fuzzington is a tiny golden ball of fur with big curious eyes. Heshima is a large, regal creature with a mane like a sunset. Warm colors, soft textures.",
-                bgColor: "linear-gradient(to bottom, #4ade80, #22c55e)"
+                phase: "The Ordinary World",
+                title: "The Golden Song",
+                text: "Fuzzington was a tiny ball of golden fluff. In the Kingdom of Paz, he spent his days listening to his father, Heshima, sing the songs that kept the world bright. Fuzzington was clumsy and a little bit shy, but he was always happy.",
+                art: "Warm, sunset-colored valley. Fuzzington looking up at the regal Heshima. High saturation, cozy feeling.",
+                bgColor: "linear-gradient(to bottom, #4ade80, #166534)"
             },
             {
                 phase: "The Call to Adventure",
-                title: "A Terrible Silence",
-                text: "One morning, the song stopped. The colors of Paz began to fade into a cold, dusty grey. Lady Hofu—the Witch of Fear—had stolen Heshima's voice. 'Fuzzington,' Heshima whispered, 'the Ny-Gumi plant is the only cure... but the path is long.'",
-                art: "The valley is turning grey. Heshima looks weak. High-angle shot showing Fuzzington looking very small against a vast, dark forest entrance.",
-                bgColor: "linear-gradient(to bottom, #94a3b8, #475569)"
+                title: "A Sudden Silence",
+                text: "One morning, the song stopped. Lady Hofu, the Witch of Fear, had stolen Heshima's voice. The valley turned grey. 'Fuzzington,' Heshima whispered, 'the Ny-Gumi plant in Magum is the only cure. You must be the one to find it.'",
+                art: "Grey dust blowing across the valley. Heshima looking tired and silent. Fuzzington clutching a small travel pouch.",
+                bgColor: "linear-gradient(to bottom, #64748b, #1e293b)"
             },
             {
                 phase: "Crossing the Threshold",
-                title: "Into the Unknown",
-                text: "Fuzzington took one last look at his warm bed and stepped into the Dark Woods. His knees knocked together. 'I am not brave,' he whispered. But his love for his father was bigger than his fear.",
-                art: "Fuzzington’s foot stepping from bright grass onto dark, gnarled roots. Blue and purple shadows. His face shows determination through fear.",
-                bgColor: "linear-gradient(to bottom, #1e1b4b, #0f172a)"
+                title: "The First Step",
+                text: "Fuzzington reached the edge of the Whispering Woods. He was scared of the dark and his knees knocked together. But he thought of his father and stepped into the purple mist. 'I'm going to be brave,' he whispered.",
+                art: "Fuzzington at the edge of a gnarled, dark forest. Contrast between the grey path and the deep purple woods.",
+                bgColor: "linear-gradient(to bottom, #2e1065, #0f172a)"
             },
             {
-                phase: "Test 1: The Blue Eyes",
-                title: "The Reindeer's Gift",
-                text: "The woods grew pitch black. Fuzzington bumped into a Reindeer with glowing antlers. 'To see the truth in the dark, you must change how you look at the world,' the Reindeer said. Fuzzington closed his eyes and wished for light.",
+                phase: "The Trial of Vision",
+                title: "Eyes in the Dark",
+                text: "The woods were pitch black! Fuzzington kept bumping into trees. Then, a Reindeer with glowing antlers appeared. 'To see in the dark, you must look with your heart,' the Reindeer said.",
                 question: "What color do Reindeer eyes turn in winter to help them see in the dark?",
-                options: ["Pink", "Blue"],
-                correct: 1,
+                options: ["Deep Blue", "Bright Pink"],
+                correct: 0,
+                fact: "Reindeer eyes actually change color from gold to blue to capture more light in the winter!",
                 power: "Night Vision! 👁️",
-                art: "Dark forest lit by glowing blue reindeer antlers. Fuzzington’s eyes now glow with a soft blue light."
+                art: "Glowing blue antlers lighting up a dark scene. Fuzzington's eyes begin to glow with a soft blue light."
             },
             {
-                phase: "Test 2: The Silent Walk",
-                title: "The Alpaca's Secret",
-                text: "Crunch! Snap! Fuzzington was too noisy! Lady Hofu’s shadow-birds were circling above. A fluffy Alpaca appeared. 'Walk like me,' she hummed. 'Softly, softly.'",
-                question: "Alpacas don't have hard hooves. What do they have on their feet instead?",
-                options: ["Soft Pads", "Iron Shoes"],
-                correct: 0,
-                power: "Silent Step! 👣",
-                art: "Fuzzington treading carefully behind a graceful alpaca. The shadow-birds are high above in the mist."
-            },
-            {
-                phase: "Rising Action: The Heat of Courage",
-                title: "The Frozen Peak",
-                text: "The path turned to ice. Fuzzington shivered until he met a great Polar Bear. 'Warmth comes from within,' the Bear rumbled. Fuzzington touched the Bear's thick coat and felt the sun's energy stored deep inside.",
-                question: "Beneath the white fur, what color is a Polar Bear's skin to soak up the sun?",
-                options: ["Black", "White"],
-                correct: 0,
+                phase: "The Trial of Heat",
+                title: "The Frozen Pass",
+                text: "A blizzard began to howl. Fuzzington shivered in the cold. A great Polar Bear rumbled, 'The sun's warmth is stored inside us, little one. You just have to find it.'",
+                question: "What color is a Polar Bear's skin underneath all that white fur?",
+                options: ["Pink", "Black"],
+                correct: 1,
+                fact: "Polar bears have black skin! It helps them soak up the sun's warmth like a dark t-shirt.",
                 power: "Inner Warmth! ☀️",
-                art: "A blizzard. The Polar Bear is huge and comforting. Fuzzington looks warm and glowing against the white snow."
+                art: "Fuzzington leaning against a massive, comforting white bear in a snowstorm. A warm glow spreads through his fur."
+            },
+            {
+                phase: "The Trial of Shadows",
+                title: "The Fox's Trick",
+                text: "Lady Hofu's shadow-guards were blocking the path! Fuzzington needed to get past them without a fight. A Marble Fox giggled from the bushes. 'A clever voice is better than a loud one!'",
+                question: "Can a Marble Fox make a giggling sound to distract their enemies?",
+                options: ["Yes, they giggle!", "No, they only bark"],
+                correct: 0,
+                fact: "Foxes can make over 40 different sounds, including a giggle, a bark, and even a scream!",
+                power: "Multi-Voice! 🗣️",
+                art: "Fuzzington and a fox hiding in bushes. The fox is throwing its voice to lead guards away."
             },
             {
                 phase: "The Climax",
-                title: "The Gate of Jasiri",
-                text: "At last, the Land of Magum! But Jasiri the Satyr Tragopan blocked the way. 'Many come for the plant,' she said. 'But only one who has learned the world's secrets can hold it.'",
-                question: "Jasiri is a master of hiding. What do her spotted brown feathers help her do?",
-                options: ["Fly like a plane", "Camouflage in the forest"],
-                correct: 1,
+                title: "The Gate of Magum",
+                text: "At last, Fuzzington reached the Land of Magum. Jasiri the Satyr Tragopan stood before the glowing Ny-Gumi plant. 'Only the brave may take the cure,' she said. Fuzzington stood tall. He wasn't clumsy anymore.",
+                question: "Jasiri is a master of camouflage. What do her spotted feathers help her do?",
+                options: ["Hide in the Mist", "Fly to the Moon"],
+                correct: 0,
+                fact: "Satyr Tragopans have beautiful 'eye' spots on their feathers that help them disappear into the shadows of the forest.",
                 power: "The Ny-Gumi Plant! 🌿",
-                art: "Magical mountain gate. Jasiri is majestic and mysterious. Fuzzington stands tall, no longer clumsy, but ready."
+                art: "Magical mountain peak with a glowing green plant. Fuzzington looks strong and confident."
             },
             {
                 phase: "Resolution",
                 title: "The Song Returns",
-                text: "Fuzzington returned to Paz, not as a clumsy ball of fur, but as a Hero. He gave the plant to Heshima, and the Golden Song burst across the valley! Lady Hofu vanished like smoke in the wind.",
-                art: "Heshima and Fuzzington hugging. The valley is erupting in colors—pinks, greens, and golds. Fuzzington looks older, wiser, and happy.",
-                bgColor: "linear-gradient(to bottom, #fde047, #f59e0b)"
+                text: "Fuzzington raced home and gave the plant to Heshima. The Golden Song burst across the valley, and the colors returned! Fuzzington was home, and everyone knew him as the Bravest Hero in Paz.",
+                art: "Heshima and Fuzzington hugging. The valley is erupting in vibrant colors. Happy, warm, and triumphant.",
+                bgColor: "linear-gradient(to bottom, #fde047, #ea580c)"
             }
         ];
 
@@ -204,7 +233,7 @@
             
             const artPrompt = document.createElement('div');
             artPrompt.className = 'art-prompt';
-            artPrompt.innerText = "🎨 ILLUSTRATOR NOTE: " + data.art;
+            artPrompt.innerHTML = "<strong>ART DIRECTION:</strong><br>" + data.art;
 
             const content = document.createElement('div');
             content.className = 'content-overlay';
@@ -212,11 +241,11 @@
             let interactiveHTML = '';
             if (data.question) {
                 interactiveHTML = `
-                    <div class="mt-6 bg-white/10 p-4 rounded-xl border border-white/20">
-                        <p class="text-yellow-400 font-bold mb-3">Help Fuzzington Grow: ${data.question}</p>
-                        <div class="flex justify-center gap-4">
+                    <div id="quiz-box" class="mt-8 bg-white/5 p-6 rounded-2xl border border-white/10">
+                        <p class="text-yellow-400 font-bold text-lg mb-4">⭐ Help Fuzzington: ${data.question}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             ${data.options.map((opt, i) => `
-                                <button onclick="handleAnswer(${i})" class="bg-white text-black px-4 py-2 rounded-lg font-bold hover:bg-yellow-400 transition-colors">
+                                <button onclick="handleAnswer(${i})" class="option-btn text-white">
                                     ${opt}
                                 </button>
                             `).join('')}
@@ -226,9 +255,9 @@
             }
 
             content.innerHTML = `
-                <p class="text-sm font-bold tracking-widest text-yellow-500 uppercase mb-2">${data.phase}</p>
-                <h1 class="story-heading text-4xl md:text-6xl mb-6 text-white">${data.title}</h1>
-                <p class="text-xl md:text-2xl leading-relaxed text-gray-200">${data.text}</p>
+                <p class="text-xs font-black tracking-[0.2em] text-yellow-500 uppercase mb-3">${data.phase}</p>
+                <h1 class="story-heading text-4xl md:text-6xl mb-6 text-white leading-tight">${data.title}</h1>
+                <p class="text-lg md:text-2xl leading-relaxed text-gray-200 font-medium">${data.text}</p>
                 <div id="reward-zone"></div>
                 ${interactiveHTML}
             `;
@@ -238,29 +267,32 @@
             page.appendChild(content);
             container.appendChild(page);
 
-            // Button Control
+            document.getElementById('progress').innerText = `${currentPage + 1} / ${story.length}`;
             document.getElementById('prevBtn').style.display = currentPage === 0 ? 'none' : 'block';
-            document.getElementById('nextBtn').innerText = currentPage === 0 ? 'Start Adventure' : (currentPage === story.length - 1 ? 'Read Again' : 'Turn Page');
+            document.getElementById('nextBtn').innerText = currentPage === 0 ? 'Start Quest' : (currentPage === story.length - 1 ? 'Read Again' : 'Next Chapter');
             
-            // Lock next button if there's a question
-            if (data.question) {
-                document.getElementById('nextBtn').disabled = true;
-                document.getElementById('nextBtn').style.opacity = '0.3';
-            } else {
-                document.getElementById('nextBtn').disabled = false;
-                document.getElementById('nextBtn').style.opacity = '1';
-            }
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = !!data.question;
         }
 
         window.handleAnswer = function(idx) {
             const data = story[currentPage];
             if (idx === data.correct) {
+                // Hide the quiz box
+                document.getElementById('quiz-box').classList.add('hidden');
+                
+                // Show reward with the fact
                 const zone = document.getElementById('reward-zone');
-                zone.innerHTML = `<div class="fuzz-power">✨ Fuzzington gained: ${data.power}</div>`;
+                zone.innerHTML = `
+                    <div class="fuzz-power">
+                        <div class="text-sm uppercase tracking-widest opacity-80 mb-1">Success!</div>
+                        <div class="text-2xl mb-2">${data.power}</div>
+                        <div class="text-sm font-normal italic leading-tight text-white/90">"${data.fact}"</div>
+                    </div>
+                `;
                 document.getElementById('nextBtn').disabled = false;
-                document.getElementById('nextBtn').style.opacity = '1';
             } else {
-                alert("Almost! Look closer at the animals...");
+                alert("The spirit of Paz says: Try again! Look closer at the animal's secret.");
             }
         };
 
