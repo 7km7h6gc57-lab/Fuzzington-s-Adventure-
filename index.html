@@ -153,14 +153,14 @@
             {
                 phase: "The Call to Adventure",
                 title: "A Sudden Silence",
-                text: "One morning, the song stopped. Lady Hofu, the Witch of Fear, had stolen Heshima's voice. The valley turned grey. 'Fuzzington,' Heshima whispered, 'the Ny-Gumi plant in Magum is the only cure. You must be the one to find it.'",
-                art: "Grey dust blowing across the valley. Heshima looking tired and silent. Fuzzington clutching a small travel pouch.",
+                text: "One morning, the song stopped. Lady Hofu, the Golden Langur who had grown jealous of the music, cast a spell of fear from the highest trees. The valley turned grey. 'Fuzzington,' Heshima whispered, 'the Ny-Gumi plant in Magum is the only cure. You must find it.'",
+                art: "A Golden Langur (Lady Hofu) with a cold, glowing stare sitting atop a gnarled tree. The valley below is turning grey and dusty.",
                 bgColor: "linear-gradient(to bottom, #64748b, #1e293b)"
             },
             {
                 phase: "Crossing the Threshold",
                 title: "The First Step",
-                text: "Fuzzington reached the edge of the Whispering Woods. He was scared of the dark and his knees knocked together. But he thought of his father and stepped into the purple mist. 'I'm going to be brave,' he whispered.",
+                text: "Fuzzington reached the edge of the Whispering Woods. Lady Hofu's shadow-mist hung thick in the air. He was scared, and his knees knocked together, but he thought of his father and stepped into the purple mist. 'I'm going to be brave,' he whispered.",
                 art: "Fuzzington at the edge of a gnarled, dark forest. Contrast between the grey path and the deep purple woods.",
                 bgColor: "linear-gradient(to bottom, #2e1065, #0f172a)"
             },
@@ -199,20 +199,20 @@
             },
             {
                 phase: "The Climax",
-                title: "The Gate of Magum",
-                text: "At last, Fuzzington reached the Land of Magum. Jasiri the Satyr Tragopan stood before the glowing Ny-Gumi plant. 'Only the brave may take the cure,' she said. Fuzzington stood tall. He wasn't clumsy anymore.",
-                question: "Jasiri is a master of camouflage. What do her spotted feathers help her do?",
-                options: ["Hide in the Mist", "Fly to the Moon"],
+                title: "The Sovereign of the Skies",
+                text: "At last, Fuzzington reached the Peak of Magum. Jasiri, the mighty Harpy Eagle, landed with a thunderous flap. 'I guard the cure from those who fear the heights,' she screeched. Fuzzington didn't flinch. He looked at her giant talons with respect.",
+                question: "Jasiri is the most powerful eagle. How large can a Harpy Eagle's talons grow?",
+                options: ["As big as a Grizzly Bear's claws", "As small as a kitten's"],
                 correct: 0,
-                fact: "Satyr Tragopans have beautiful 'eye' spots on their feathers that help them disappear into the shadows of the forest.",
+                fact: "Harpy Eagle talons can be up to 5 inches long—that's as big as a Grizzly Bear's claws!",
                 power: "The Ny-Gumi Plant! 🌿",
-                art: "Magical mountain peak with a glowing green plant. Fuzzington looks strong and confident."
+                art: "A massive, majestic Harpy Eagle (Jasiri) with a crown of feathers and giant talons. Fuzzington stands tall before her."
             },
             {
                 phase: "Resolution",
                 title: "The Song Returns",
-                text: "Fuzzington raced home and gave the plant to Heshima. The Golden Song burst across the valley, and the colors returned! Fuzzington was home, and everyone knew him as the Bravest Hero in Paz.",
-                art: "Heshima and Fuzzington hugging. The valley is erupting in vibrant colors. Happy, warm, and triumphant.",
+                text: "Fuzzington raced home and gave the plant to Heshima. The Golden Song burst across the valley, breaking Lady Hofu's spell. The Langur fled back to the highest peaks, and Fuzzington was home—no longer just a ball of fluff, but the Hero of Paz.",
+                art: "Heshima and Fuzzington embracing. The valley is erupting in vibrant colors. Happy, warm, and triumphant.",
                 bgColor: "linear-gradient(to bottom, #fde047, #ea580c)"
             }
         ];
@@ -278,10 +278,7 @@
         window.handleAnswer = function(idx) {
             const data = story[currentPage];
             if (idx === data.correct) {
-                // Hide the quiz box
                 document.getElementById('quiz-box').classList.add('hidden');
-                
-                // Show reward with the fact
                 const zone = document.getElementById('reward-zone');
                 zone.innerHTML = `
                     <div class="fuzz-power">
