@@ -3,364 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fuzzington's Illustrated Journey</title>
+    <title>Fuzzington: The Hero of Paz</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Caprasimo&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --paz-green: #4ade80;
+            --magum-purple: #a855f7;
+            --fear-grey: #64748b;
+        }
         body {
             font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(to bottom, #e0f2fe, #f0fdf4);
-            min-height: 100vh;
-            overflow-x: hidden;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            overflow: hidden;
+        }
+        .story-heading { font-family: 'Caprasimo', cursive; }
+        
+        .page-container {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
         }
 
-        /* The Journey Path Styles */
-        .journey-path {
+        .spread {
+            flex: 0 0 100vh;
             position: relative;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 30px;
-            border: 2px dashed #93c5fd;
-            margin: 20px 0;
+            overflow: hidden;
             display: flex;
             align-items: center;
-            padding: 0 30px;
+            justify-content: center;
         }
 
-        .fuzzington-walker {
+        /* Illustration Background Layer */
+        .illustration-bg {
             position: absolute;
-            font-size: 2.5rem;
-            transition: left 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
-            z-index: 10;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            filter: brightness(0.7);
         }
 
-        .destination-marker {
-            position: absolute;
-            right: 10px;
-            font-size: 1.5rem;
-            opacity: 0.8;
-        }
-
-        .scene-box {
-            background: white;
-            border: 8px solid #fff;
-            border-radius: 2rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+        /* Text Layer */
+        .content-overlay {
             position: relative;
-            min-height: 250px;
+            z-index: 10;
+            max-width: 800px;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .animal-spirit {
-            font-size: 8rem;
-            animation: bounce 3s infinite;
+        .fuzz-power {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: gold;
+            color: black;
+            font-weight: bold;
+            border-radius: 99px;
+            margin-top: 1rem;
+            animation: bounce 2s infinite;
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
-        .floating-trait {
-            animation: float 2s ease-in-out infinite;
+        .nav-btn {
+            position: fixed;
+            bottom: 2rem;
+            padding: 1rem 2.5rem;
+            border-radius: 99px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.2s;
         }
+        .btn-next { right: 2rem; background: var(--paz-green); color: #064e3b; }
+        .btn-prev { left: 2rem; background: rgba(255,255,255,0.2); color: white; }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
+        /* Art Director's Tooltips */
+        .art-prompt {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(0,0,0,0.8);
+            color: #fbbf24;
+            padding: 0.5rem;
+            font-size: 0.7rem;
+            border-radius: 0.5rem;
+            max-width: 200px;
+            z-index: 50;
+            opacity: 0.3;
         }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body>
 
-    <div class="max-w-4xl mx-auto">
-        
-        <!-- JOURNEY MAP (The Progress Tracker) -->
-        <div id="journey-ui" class="hidden mb-8">
-            <div class="flex justify-between text-sm font-bold text-blue-600 mb-1 px-4">
-                <span>Kingdom of Paz</span>
-                <span>Land of Magum</span>
-            </div>
-            <div class="journey-path">
-                <div id="fuzzington-avatar" class="fuzzington-walker" style="left: 0%;">🦁</div>
-                <div class="destination-marker">🌿</div>
-            </div>
-        </div>
-
-        <!-- MAIN STORY AREA -->
-        <div id="screen-content" class="space-y-6">
-            <!-- Content injected by JS -->
-        </div>
-
-        <!-- TRAITS BAR -->
-        <div id="traits-bar" class="mt-8 flex flex-wrap justify-center gap-4">
-            <!-- Earned icons go here -->
-        </div>
+    <div id="master-container" class="page-container">
+        <!-- Pages will be injected here -->
     </div>
 
-    <!-- Feedback Modal -->
-    <div id="modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center p-6 z-50">
-        <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl">
-            <div id="modal-icon" class="text-7xl mb-4"></div>
-            <h2 id="modal-title" class="text-3xl font-bold mb-2"></h2>
-            <p id="modal-text" class="text-gray-600 mb-6"></p>
-            <button id="modal-btn" class="w-full bg-blue-500 text-white font-bold py-4 rounded-2xl text-xl hover:bg-blue-600 transition-colors">Next!</button>
-        </div>
-    </div>
+    <button id="prevBtn" class="nav-btn btn-prev" onclick="changePage(-1)" style="display:none">Back</button>
+    <button id="nextBtn" class="nav-btn btn-next" onclick="changePage(1)">Begin</button>
 
     <script>
         const story = [
             {
-                type: 'start',
-                bg: 'bg-emerald-400',
-                title: 'Help Fuzzington!',
-                text: 'Fuzzington needs the Ny-Gumi plant to save his dad, Heshima. He must travel across the world to reach the Land of Magum. Are you ready to help him meet amazing animals?',
-                btn: 'Let\'s Go!'
+                phase: "Ordinary World",
+                title: "The Golden Song of Paz",
+                text: "Fuzzington was small, very fluffy, and a little bit clumsy. In the Kingdom of Paz, he spent his days chasing sun-butterflies and listening to his father, Heshima, sing the songs of harmony.",
+                art: "A vibrant, sun-drenched valley. Fuzzington is a tiny golden ball of fur with big curious eyes. Heshima is a large, regal creature with a mane like a sunset. Warm colors, soft textures.",
+                bgColor: "linear-gradient(to bottom, #4ade80, #22c55e)"
             },
             {
-                name: 'Reindeer',
-                animal: '🦌',
-                fact: 'Reindeer turn their eyes BLUE in winter to see in the dark!',
-                question: 'What color eyes help Fuzzington see in the dark?',
-                options: ['Bright Pink', 'Deep Blue'],
+                phase: "The Call to Adventure",
+                title: "A Terrible Silence",
+                text: "One morning, the song stopped. The colors of Paz began to fade into a cold, dusty grey. Lady Hofu—the Witch of Fear—had stolen Heshima's voice. 'Fuzzington,' Heshima whispered, 'the Ny-Gumi plant is the only cure... but the path is long.'",
+                art: "The valley is turning grey. Heshima looks weak. High-angle shot showing Fuzzington looking very small against a vast, dark forest entrance.",
+                bgColor: "linear-gradient(to bottom, #94a3b8, #475569)"
+            },
+            {
+                phase: "Crossing the Threshold",
+                title: "Into the Unknown",
+                text: "Fuzzington took one last look at his warm bed and stepped into the Dark Woods. His knees knocked together. 'I am not brave,' he whispered. But his love for his father was bigger than his fear.",
+                art: "Fuzzington’s foot stepping from bright grass onto dark, gnarled roots. Blue and purple shadows. His face shows determination through fear.",
+                bgColor: "linear-gradient(to bottom, #1e1b4b, #0f172a)"
+            },
+            {
+                phase: "Test 1: The Blue Eyes",
+                title: "The Reindeer's Gift",
+                text: "The woods grew pitch black. Fuzzington bumped into a Reindeer with glowing antlers. 'To see the truth in the dark, you must change how you look at the world,' the Reindeer said. Fuzzington closed his eyes and wished for light.",
+                question: "What color do Reindeer eyes turn in winter to help them see in the dark?",
+                options: ["Pink", "Blue"],
                 correct: 1,
-                trait: 'Night Vision',
-                traitIcon: '👁️'
+                power: "Night Vision! 👁️",
+                art: "Dark forest lit by glowing blue reindeer antlers. Fuzzington’s eyes now glow with a soft blue light."
             },
             {
-                name: 'Alpaca',
-                animal: '🦙',
-                fact: 'Alpacas have soft, quiet pads on their feet instead of hard hooves.',
-                question: 'Which feet help Fuzzington sneak quietly past Lady Hofu?',
-                options: ['Hard Hooves', 'Soft Pads'],
-                correct: 1,
-                trait: 'Silent Step',
-                traitIcon: '👣'
-            },
-            {
-                name: 'Capybara',
-                animal: '🐹',
-                fact: 'Capybaras have webbed feet to help them be expert swimmers!',
-                question: 'A river is in the way! What helps Fuzzington swim across?',
-                options: ['Webbed Feet', 'A Life Jacket'],
+                phase: "Test 2: The Silent Walk",
+                title: "The Alpaca's Secret",
+                text: "Crunch! Snap! Fuzzington was too noisy! Lady Hofu’s shadow-birds were circling above. A fluffy Alpaca appeared. 'Walk like me,' she hummed. 'Softly, softly.'",
+                question: "Alpacas don't have hard hooves. What do they have on their feet instead?",
+                options: ["Soft Pads", "Iron Shoes"],
                 correct: 0,
-                trait: 'Super Swimmer',
-                traitIcon: '🏊'
+                power: "Silent Step! 👣",
+                art: "Fuzzington treading carefully behind a graceful alpaca. The shadow-birds are high above in the mist."
             },
             {
-                name: 'Polar Bear',
-                animal: '🐻‍❄️',
-                fact: 'Polar bears have black skin under their fur to soak up heat!',
-                question: 'What color is Fuzzington\'s skin now to stay warm in the snow?',
-                options: ['White', 'Black'],
-                correct: 1,
-                trait: 'Sun-Warmth',
-                traitIcon: '☀️'
-            },
-            {
-                name: 'King Crab',
-                animal: '🦀',
-                fact: 'King Crabs wear a thick spiky shell like a suit of armor.',
-                question: 'Thorns are blocking the path! What does Fuzzington need?',
-                options: ['Spiky Armor', 'A Sweater'],
+                phase: "Rising Action: The Heat of Courage",
+                title: "The Frozen Peak",
+                text: "The path turned to ice. Fuzzington shivered until he met a great Polar Bear. 'Warmth comes from within,' the Bear rumbled. Fuzzington touched the Bear's thick coat and felt the sun's energy stored deep inside.",
+                question: "Beneath the white fur, what color is a Polar Bear's skin to soak up the sun?",
+                options: ["Black", "White"],
                 correct: 0,
-                trait: 'Spiky Shell',
-                traitIcon: '🛡️'
+                power: "Inner Warmth! ☀️",
+                art: "A blizzard. The Polar Bear is huge and comforting. Fuzzington looks warm and glowing against the white snow."
             },
             {
-                name: 'Golden Langur',
-                animal: '🐒',
-                fact: 'These monkeys live high in the treetops to stay safe.',
-                question: 'Where should Fuzzington climb to reach the next path?',
-                options: ['High Treetops', 'Deep Caves'],
-                correct: 0,
-                trait: 'Tree Leap',
-                traitIcon: '🌳'
-            },
-            {
-                name: 'Marble Fox',
-                animal: '🦊',
-                fact: 'Foxes can make over 40 sounds, even a giggle!',
-                question: 'Can Fuzzington giggle like a fox to distract the guards?',
-                options: ['Only Bark', 'Bark and Giggle'],
+                phase: "The Climax",
+                title: "The Gate of Jasiri",
+                text: "At last, the Land of Magum! But Jasiri the Satyr Tragopan blocked the way. 'Many come for the plant,' she said. 'But only one who has learned the world's secrets can hold it.'",
+                question: "Jasiri is a master of hiding. What do her spotted brown feathers help her do?",
+                options: ["Fly like a plane", "Camouflage in the forest"],
                 correct: 1,
-                trait: 'Multi-Voice',
-                traitIcon: '🗣️'
+                power: "The Ny-Gumi Plant! 🌿",
+                art: "Magical mountain gate. Jasiri is majestic and mysterious. Fuzzington stands tall, no longer clumsy, but ready."
             },
             {
-                name: 'Shoebill Stork',
-                animal: '🐦',
-                fact: 'Shoebills can stay still as a statue for many hours.',
-                question: 'To hide from Lady Hofu, how long can Fuzzington stay still?',
-                options: ['1 minute', 'Several hours'],
-                correct: 1,
-                trait: 'Statue Still',
-                traitIcon: '🗿'
-            },
-            {
-                name: 'Octopus',
-                animal: '🐙',
-                fact: 'Octopuses change their color and texture in less than a second!',
-                question: 'How fast can Fuzzington change color to hide in the rocks?',
-                options: ['1 Second', '1 Day'],
-                correct: 0,
-                trait: 'Shape-Shift',
-                traitIcon: '🧬'
-            },
-            {
-                name: 'Pangolin',
-                animal: '🛡️',
-                fact: 'Pangolin scales are made of Keratin—just like your fingernails!',
-                question: 'What are Fuzzington\'s new protective scales made of?',
-                options: ['Metal', 'Keratin'],
-                correct: 1,
-                trait: 'Ball Roll',
-                traitIcon: '⚽'
-            },
-            {
-                name: 'Markhor',
-                animal: '🐐',
-                fact: 'Markhors are world-class jumpers on rocky mountain cliffs.',
-                question: 'A giant cliff is ahead! Can Fuzzington jump across?',
-                options: ['Yes, Super Jump!', 'No, it\'s too high'],
-                correct: 0,
-                trait: 'Super Jump',
-                traitIcon: '🦘'
-            },
-            {
-                name: 'Jasiri',
-                animal: '🦜',
-                fact: 'Jasiri the Satyr Tragopan hides in the forest using spotted feathers.',
-                question: 'You reached Magum! What does Jasiri use to hide in the mist?',
-                options: ['A plane', 'Spotted Camouflage'],
-                correct: 1,
-                trait: 'Ny-Gumi Plant',
-                traitIcon: '🌿'
-            },
-            {
-                type: 'end',
-                bg: 'bg-yellow-400',
-                title: 'Paz is Saved!',
-                text: 'Fuzzington used all his new powers to reach his dad and cure him. Lady Hofu has retreated, and the Kingdom of Paz is full of color again. Great job, Hero!',
-                btn: 'Play Again'
+                phase: "Resolution",
+                title: "The Song Returns",
+                text: "Fuzzington returned to Paz, not as a clumsy ball of fur, but as a Hero. He gave the plant to Heshima, and the Golden Song burst across the valley! Lady Hofu vanished like smoke in the wind.",
+                art: "Heshima and Fuzzington hugging. The valley is erupting in colors—pinks, greens, and golds. Fuzzington looks older, wiser, and happy.",
+                bgColor: "linear-gradient(to bottom, #fde047, #f59e0b)"
             }
         ];
 
-        let step = 0;
-        const container = document.getElementById('screen-content');
-        const journeyUI = document.getElementById('journey-ui');
-        const avatar = document.getElementById('fuzzington-avatar');
-        const traitsBar = document.getElementById('traits-bar');
+        let currentPage = 0;
+        const container = document.getElementById('master-container');
 
-        function render() {
-            const data = story[step];
+        function renderPage() {
             container.innerHTML = '';
+            const data = story[currentPage];
 
-            // Update Progress UI
-            if (step > 0 && step < story.length - 1) {
-                journeyUI.classList.remove('hidden');
-                const percent = (step / (story.length - 2)) * 85;
-                avatar.style.left = `${percent}%`;
-            } else {
-                journeyUI.classList.add('hidden');
+            const page = document.createElement('div');
+            page.className = 'spread';
+            
+            const bg = document.createElement('div');
+            bg.className = 'illustration-bg';
+            bg.style.background = data.bgColor || 'linear-gradient(to bottom, #1e293b, #020617)';
+            
+            const artPrompt = document.createElement('div');
+            artPrompt.className = 'art-prompt';
+            artPrompt.innerText = "🎨 ILLUSTRATOR NOTE: " + data.art;
+
+            const content = document.createElement('div');
+            content.className = 'content-overlay';
+            
+            let interactiveHTML = '';
+            if (data.question) {
+                interactiveHTML = `
+                    <div class="mt-6 bg-white/10 p-4 rounded-xl border border-white/20">
+                        <p class="text-yellow-400 font-bold mb-3">Help Fuzzington Grow: ${data.question}</p>
+                        <div class="flex justify-center gap-4">
+                            ${data.options.map((opt, i) => `
+                                <button onclick="handleAnswer(${i})" class="bg-white text-black px-4 py-2 rounded-lg font-bold hover:bg-yellow-400 transition-colors">
+                                    ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
             }
 
-            if (data.type === 'start' || data.type === 'end') {
-                container.innerHTML = `
-                    <div class="text-center p-8 rounded-3xl ${data.bg} text-white shadow-xl">
-                        <div class="text-9xl mb-6">${data.type === 'start' ? '🦁' : '✨'}</div>
-                        <h1 class="text-5xl font-bold mb-4">${data.title}</h1>
-                        <p class="text-2xl mb-8 opacity-90">${data.text}</p>
-                        <button onclick="next()" class="bg-white text-gray-800 px-12 py-5 rounded-full text-2xl font-bold shadow-lg active:scale-95 transition-transform">
-                            ${data.btn}
-                        </button>
-                    </div>
-                `;
-            } else {
-                container.innerHTML = `
-                    <div class="scene-box flex items-center justify-center bg-gradient-to-b from-sky-100 to-white">
-                        <div class="flex items-center gap-12">
-                            <div class="text-center">
-                                <div class="animal-spirit">${data.animal}</div>
-                                <p class="font-bold text-gray-400 uppercase tracking-widest">${data.name}</p>
-                            </div>
-                            <div class="text-5xl">➡️</div>
-                            <div class="text-8xl">🦁</div>
-                        </div>
-                    </div>
+            content.innerHTML = `
+                <p class="text-sm font-bold tracking-widest text-yellow-500 uppercase mb-2">${data.phase}</p>
+                <h1 class="story-heading text-4xl md:text-6xl mb-6 text-white">${data.title}</h1>
+                <p class="text-xl md:text-2xl leading-relaxed text-gray-200">${data.text}</p>
+                <div id="reward-zone"></div>
+                ${interactiveHTML}
+            `;
 
-                    <div class="bg-white p-8 rounded-3xl shadow-lg border-b-8 border-blue-200">
-                        <p class="text-xl font-bold text-blue-500 mb-2">Did you know?</p>
-                        <p class="text-2xl text-gray-800 mb-8 font-semibold">"${data.fact}"</p>
-                        
-                        <div class="bg-blue-50 p-6 rounded-2xl border-2 border-blue-100">
-                            <p class="text-xl font-bold mb-4 text-blue-900">${data.question}</p>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                ${data.options.map((opt, i) => `
-                                    <button onclick="check(${i})" class="bg-white py-4 px-6 rounded-xl text-xl font-bold border-2 border-blue-200 hover:border-blue-500 hover:bg-blue-50 transition-all text-left">
-                                        ${opt}
-                                    </button>
-                                `).join('')}
-                            </div>
-                        </div>
-                    </div>
-                `;
+            page.appendChild(bg);
+            page.appendChild(artPrompt);
+            page.appendChild(content);
+            container.appendChild(page);
+
+            // Button Control
+            document.getElementById('prevBtn').style.display = currentPage === 0 ? 'none' : 'block';
+            document.getElementById('nextBtn').innerText = currentPage === 0 ? 'Start Adventure' : (currentPage === story.length - 1 ? 'Read Again' : 'Turn Page');
+            
+            // Lock next button if there's a question
+            if (data.question) {
+                document.getElementById('nextBtn').disabled = true;
+                document.getElementById('nextBtn').style.opacity = '0.3';
+            } else {
+                document.getElementById('nextBtn').disabled = false;
+                document.getElementById('nextBtn').style.opacity = '1';
             }
         }
 
-        window.check = function(i) {
-            const data = story[step];
-            const modal = document.getElementById('modal');
-            const mTitle = document.getElementById('modal-title');
-            const mText = document.getElementById('modal-text');
-            const mIcon = document.getElementById('modal-icon');
-            const mBtn = document.getElementById('modal-btn');
-
-            if (i === data.correct) {
-                mIcon.innerText = data.traitIcon;
-                mTitle.innerText = "You got it!";
-                mText.innerText = `Fuzzington learned ${data.trait}!`;
-                mBtn.onclick = () => {
-                    addTrait(data.traitIcon, data.trait);
-                    closeModal();
-                    next();
-                };
+        window.handleAnswer = function(idx) {
+            const data = story[currentPage];
+            if (idx === data.correct) {
+                const zone = document.getElementById('reward-zone');
+                zone.innerHTML = `<div class="fuzz-power">✨ Fuzzington gained: ${data.power}</div>`;
+                document.getElementById('nextBtn').disabled = false;
+                document.getElementById('nextBtn').style.opacity = '1';
             } else {
-                mIcon.innerText = "🤔";
-                mTitle.innerText = "Almost!";
-                mText.innerText = "Check the 'Did you know' fact and try again!";
-                mBtn.onclick = closeModal;
+                alert("Almost! Look closer at the animals...");
             }
-
-            modal.classList.remove('hidden');
         };
 
-        function addTrait(icon, name) {
-            const el = document.createElement('div');
-            el.className = "floating-trait bg-white w-14 h-14 rounded-full shadow-md flex items-center justify-center text-2xl border-2 border-blue-100";
-            el.innerHTML = icon;
-            el.title = name;
-            traitsBar.appendChild(el);
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.add('hidden');
-        }
-
-        function next() {
-            if (step < story.length - 1) {
-                step++;
-                render();
-            } else {
-                step = 0;
-                traitsBar.innerHTML = '';
-                render();
+        window.changePage = function(dir) {
+            if (currentPage + dir >= 0 && currentPage + dir < story.length) {
+                currentPage += dir;
+                renderPage();
+            } else if (currentPage + dir === story.length) {
+                currentPage = 0;
+                renderPage();
             }
-        }
+        };
 
-        // Start
-        render();
+        renderPage();
     </script>
 </body>
 </html>
