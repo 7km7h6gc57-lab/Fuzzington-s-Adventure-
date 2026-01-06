@@ -43,18 +43,16 @@
             background-size: cover;
             background-position: center;
             z-index: 1;
-            /* Lighter filter so images are clearer */
             filter: brightness(0.8); 
             transition: background-image 0.5s ease-in-out;
         }
 
-        /* Repositioned Content Overlay to the Bottom */
         .content-overlay {
             position: relative;
             z-index: 10;
             width: 100%;
             max-width: 1000px;
-            margin: 0 auto 5rem auto; /* Space for nav buttons */
+            margin: 0 auto 5rem auto;
             padding: 1.5rem 2rem;
             background: rgba(0,0,0,0.75);
             backdrop-filter: blur(15px);
@@ -69,7 +67,7 @@
             gap: 1.5rem;
             padding: 1rem 1.5rem;
             background: #fbbf24;
-            color: #451a03; /* Dark base color */
+            color: #451a03; 
             font-weight: 700;
             border-radius: 1rem;
             margin-top: 1rem;
@@ -77,9 +75,8 @@
             text-align: left;
         }
 
-        /* High Contrast Fact Text */
         .fact-text {
-            color: #3b2100; /* Darker, high-contrast font for readability */
+            color: #3b2100;
             font-weight: 600;
             line-height: 1.4;
         }
@@ -140,70 +137,70 @@
         const story = [
             {
                 phase: "The Ordinary World",
-                title: "The Golden Song",
-                text: "Fuzzington was a tiny ball of golden fluff. In the Kingdom of Paz, he spent his days listening to his father, Heshima, sing the songs that kept the world bright.",
+                title: "The Guiding Voice",
+                text: "Fuzzington was a small, golden wolf cub. In the Kingdom of Paz, he spent his days listening to his father, Heshima. Heshima’s calm stories were a warm blanket of protection for everyone in the valley.",
                 image: "images/IMG_7402.png"
             },
             {
                 phase: "The Call to Adventure",
                 title: "A Sudden Silence",
-                text: "One morning, the song stopped. Lady Hofu, the Golden Langur, cast a spell of fear from the highest trees. 'Fuzzington,' Heshima whispered, 'you must find the Ny-Gumi plant.'",
+                text: "One morning, Heshima’s voice was gone. Hofu, the Golden Langur, had taken it, believing control was safer than love. 'Fuzzington,' Heshima whispered weakly, 'the valley needs calm. You must find the Ny-Gumi plant.'",
                 image: "images/IMG_7403.png"
             },
             {
                 phase: "Crossing the Threshold",
                 title: "The First Step",
-                text: "Fuzzington reached the edge of the Whispering Woods. He was scared, but he thought of his father and stepped into the purple mist.",
+                text: "Fuzzington reached the Whispering Woods. He didn't feel very brave, and he worried about disappointing his father. But he thought of the quiet safety of Paz and stepped into the purple mist.",
                 image: "images/IMG_7404.png"
             },
             {
                 phase: "The Trial of Vision",
-                title: "Eyes in the Dark",
-                text: "The woods were pitch black! A Reindeer with glowing antlers appeared. 'To see in the dark, you must look with your heart,' the Reindeer said.",
+                title: "Ona's Quiet Light",
+                text: "The woods were dark! Ona, the Reindeer, appeared with blue glowing antlers. 'You don’t need to remove the darkness to move forward,' she said. 'Just trust the light you carry.'",
                 image: "images/IMG_7405.png",
                 question: "What color do Reindeer eyes turn in winter to help them see in the dark?",
-                options: ["Blue", "Pink"],
+                options: ["Blue", "Gold"],
                 correct: 0,
-                fact: "Reindeer eyes actually change color from gold to blue to capture more light in the winter!",
-                power: "Night Vision! 👁️"
+                fact: "Reindeer eyes change from gold to blue to capture more light! Like Ona, they find a way through the shadows.",
+                power: "Steady Vision! 👁️"
             },
             {
                 phase: "The Trial of Heat",
-                title: "The Frozen Pass",
-                text: "A blizzard began to howl. A great Polar Bear rumbled, 'The sun's warmth is stored inside us, little one. You just have to find it.'",
+                title: "Jua’s Inner Sun",
+                text: "A blizzard began to howl. Jua, the great Polar Bear, sat peacefully in the storm. 'Strength comes from gentleness, little one,' he rumbled. 'Your warmth comes from within.'",
                 image: "images/IMG_7406.png",
-                question: "What color is a Polar Bear's skin underneath all that white fur? Hint - The darker the better.",
+                question: "What color is a Polar Bear's skin underneath all that white fur?",
                 options: ["Pink", "Black"],
                 correct: 1,
-                fact: "Polar bears have black skin! It helps them soak up the sun's warmth like a dark t-shirt.",
-                power: "Inner Warmth! ☀️"
+                fact: "Polar bears have black skin to soak up the sun's warmth. Jua teaches us that true strength is quiet and warm.",
+                power: "Gentle Warmth! ☀️"
             },
             {
                 phase: "The Trial of Shadows",
-                title: "The Fox's Trick",
-                text: "Shadow-guards blocked the path! A Marble Fox giggled from the bushes. 'A clever voice is better than a loud one!'",
+                title: "Sabia’s Clever Path",
+                text: "Shadow-guards blocked the path! Sabia, the Marble Fox, giggled from the trees. 'Being smart doesn't mean being loud or mean. A clever voice is the kindest one!'",
                 image: "images/IMG_7407.png",
                 question: "Can a Marble Fox make a giggling sound to distract their enemies?",
                 options: ["Yes, they giggle!", "No, they only bark"],
                 correct: 0,
-                fact: "Foxes can make over 40 different sounds, including a giggle, a bark, and even a scream!",
-                power: "Multi-Voice! 🗣️"
+                fact: "Foxes can make over 40 sounds, including a giggle! Sabia uses her wit to avoid conflict, just like Fuzzington.",
+                power: "Wise Words! 🗣️"
             },
             {
                 phase: "The Climax",
-                title: "The Sovereign of the Skies",
-                text: "At last, Fuzzington reached the Peak of Magum. Jasiri, the mighty Harpy Eagle, landed with a thunderous flap. 'I guard the cure from those who fear the heights!'",
+                title: "Jasiri’s Respect",
+                text: "At the Peak of Magum, Jasiri the Harpy Eagle landed softly. He didn't test Fuzzington’s strength, but his resolve. 'True courage is respectful and steady,' Jasiri declared, offering the plant.",
                 image: "images/IMG_7408.png",
                 question: "How large can a Harpy Eagle's talons grow?",
-                options: ["As big as a Grizzly Bear's claws", "As small as a kitten's"],
+                options: ["As big as a Grizzly's claws", "As small as a kitten's"],
                 correct: 0,
-                fact: "Harpy Eagle talons can be up to 5 inches long—that's as big as a Grizzly Bear's claws!",
+                fact: "Harpy Eagle talons can be 5 inches long! Jasiri is a stern guardian, but he respects Fuzzington’s quiet bravery.",
                 power: "The Ny-Gumi Plant! 🌿"
             },
             {
                 phase: "Resolution",
-                title: "The Song Returns",
-                text: "Fuzzington gave the plant to Heshima. The Golden Song burst across the valley, breaking Lady Hofu's spell. Fuzzington was home and the world was bright once more!",
+                title: "The Calm Returns",
+                text: "Fuzzington found Hofu and offered kindness instead of anger. Seeing she wasn't alone, Hofu released Heshima's voice. The valley was safe again, led by a small cub who learned to trust himself.",
                 image: "images/IMG_7409.png"
             }
         ];
@@ -273,7 +270,7 @@
                     <div class="fuzz-power">
                         <div class="text-3xl">🎁</div>
                         <div>
-                            <div class="text-sm font-black uppercase tracking-wider mb-1">Power Unlocked: ${data.power}</div>
+                            <div class="text-sm font-black uppercase tracking-wider mb-1">Lesson Learned: ${data.power}</div>
                             <div class="text-xs fact-text">Fuzz Fact: ${data.fact}</div>
                         </div>
                     </div>
