@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Fuzzington: The Hero of Paz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Caprasimo&display=swap" rel="stylesheet">
@@ -12,117 +12,156 @@
             --magum-purple: #a855f7;
             --fear-grey: #64748b;
         }
+        
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             font-family: 'Quicksand', sans-serif;
             background-color: #000;
             color: #fff;
             margin: 0;
-            overflow: hidden;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden;
         }
+
         .story-heading { font-family: 'Caprasimo', cursive; }
         
+        /* Main wrapper to handle transitions */
         .page-container {
-            height: 100vh;
-            width: 100vw;
+            width: 100%;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
+        /* Each chapter is a section that can scroll vertically */
         .spread {
-            flex: 0 0 100vh;
+            width: 100%;
+            min-height: 100vh;
             position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Push content to bottom */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
+        /* Image handling: spans the top and stays behind text */
         .illustration-bg {
-            position: absolute;
-            inset: 0;
+            width: 100%;
+            height: 60vh; /* Primary focus on mobile */
+            flex-shrink: 0;
             background-size: cover;
             background-position: center;
+            position: sticky;
+            top: 0;
             z-index: 1;
-            filter: brightness(0.8); 
-            transition: background-image 0.5s ease-in-out;
+            filter: brightness(0.9);
         }
 
+        /* Gradient to blend image into background */
+        .img-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30vh;
+            background: linear-gradient(to bottom, transparent, #000);
+            z-index: 2;
+        }
+
+        /* Content sits below image and scrolls up over it */
         .content-overlay {
             position: relative;
             z-index: 10;
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto 5rem auto;
-            padding: 1.5rem 2rem;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(15px);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
+            padding: 2rem 1.5rem 8rem 1.5rem; /* Large bottom padding for nav buttons */
+            background: #000;
+            margin-top: -10vh; /* Pull content up slightly */
+            border-radius: 2rem 2rem 0 0;
+            box-shadow: 0 -20px 40px rgba(0,0,0,0.8);
         }
 
         .fuzz-power {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            padding: 1rem 1.5rem;
+            gap: 1rem;
+            padding: 1.25rem;
             background: #fbbf24;
             color: #451a03; 
             font-weight: 700;
-            border-radius: 1rem;
-            margin-top: 1rem;
-            animation: slideIn 0.5s ease-out;
-            text-align: left;
-        }
-
-        .fact-text {
-            color: #3b2100;
-            font-weight: 600;
-            line-height: 1.4;
+            border-radius: 1.25rem;
+            margin-top: 1.5rem;
+            animation: slideIn 0.4s ease-out;
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .nav-btn {
             position: fixed;
             bottom: 1.5rem;
-            padding: 0.8rem 2rem;
+            padding: 1rem 2rem;
             border-radius: 99px;
             font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
+            font-size: 1rem;
             z-index: 100;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-        .btn-next { right: 1.5rem; background: var(--paz-green); color: #064e3b; box-shadow: 0 4px 14px 0 rgba(74, 222, 128, 0.39); }
-        .btn-prev { left: 1.5rem; background: rgba(0,0,0,0.5); color: white; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(4px); }
         
+        .btn-next { 
+            right: 1.25rem; 
+            background: var(--paz-green); 
+            color: #064e3b; 
+        }
+        
+        .btn-prev { 
+            left: 1.25rem; 
+            background: rgba(40,40,40,0.9); 
+            color: white; 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
         .progress-indicator {
             position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
+            top: 1.25rem;
+            right: 1.25rem;
             z-index: 100;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             padding: 0.4rem 1rem;
             border-radius: 99px;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            backdrop-filter: blur(5px);
             border: 1px solid rgba(255,255,255,0.1);
         }
 
         .option-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 0.6rem 1rem;
-            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            border-radius: 1rem;
             font-weight: 700;
-            transition: all 0.2s;
-            font-size: 0.9rem;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 0.75rem;
         }
-        .option-btn:hover { background: #fbbf24; color: #451a03; border-color: #fbbf24; }
+
+        .option-btn:active {
+            background: #fbbf24;
+            color: #451a03;
+        }
+
+        /* Desktop Adjustments */
+        @media (min-width: 768px) {
+            .illustration-bg { height: 100vh; position: fixed; width: 50%; left: 0; }
+            .content-overlay { margin-left: 50%; width: 50%; margin-top: 0; border-radius: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+            .img-gradient { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -144,7 +183,7 @@
             {
                 phase: "The Call to Adventure",
                 title: "The Fading Light",
-                text: "A heavy gloom settled over the Kingdom as the lush flowers wilted and the sun grew cold. Hofu, the Golden Langur, had stolen Heshima’s voice, convinced that fear and control were more powerful than love, kindness, and fairness. With Heshima’s voice fading, the valley began to die. 'The world is losing its warmth, Fuzzington,' Heshima whispered. 'Only the Ny-Gumi plant can restore my voice and save our home.'",
+                text: "A heavy gloom settled over the Kingdom as the lush flowers wilted and the sun grew cold. Hofu, the Golden Langur, had stolen Heshima’s voice. 'The world is losing its warmth, Fuzzington,' Heshima whispered. 'Only the Ny-Gumi plant can restore my voice.'",
                 image: "images/B721B27C-502E-47E5-8343-AE44DAB1EC1F.png"
             },
             {
@@ -156,10 +195,10 @@
             {
                 phase: "The Trial of Vision",
                 title: "Ona's Quiet Light",
-                text: "The woods were dark! Ona, the Reindeer, appeared. Her antlers and her bright, cool blue eyes shimmered in the shadows. 'You don’t need to remove the darkness to move forward,' she said. 'Just trust the light you carry.'",
+                text: "The woods were dark! Ona, the Reindeer, appeared. Her cool blue eyes shimmered. 'You don’t need to remove the darkness,' she said. 'Just trust the light you carry.'",
                 image: "images/82468F95-6382-46DA-8308-30CF32578AB6.png",
-                question: "What color do Reindeer eyes turn in winter to help them see in the dark?",
-                options: ["Blue", "Gold"],
+                question: "What color do Reindeer eyes turn in winter?",
+                options: ["Deep Blue", "Bright Gold"],
                 correct: 0,
                 fact: "Reindeer eyes change from gold to blue to capture more light! Like Ona, they find a way through the shadows.",
                 power: "Steady Vision! 👁️"
@@ -167,10 +206,10 @@
             {
                 phase: "The Trial of Heat",
                 title: "Jua’s Inner Sun",
-                text: "A blizzard began to howl. Jua, the great Polar Bear, sat peacefully. As he moved, Fuzzington caught a glimpse of dark black skin beneath his white fur, drinking in the sun. 'Strength comes from gentleness,' Jua rumbled.",
+                text: "A blizzard began to howl. Jua, the great Polar Bear, sat peacefully. Fuzzington caught a glimpse of black skin beneath his white fur. 'Strength comes from gentleness,' Jua rumbled.",
                 image: "images/FBC96057-7C62-45E8-A6C7-14242B6D05FE.png",
-                question: "What color is a Polar Bear's skin underneath all that white fur?",
-                options: ["Pink", "Black"],
+                question: "What color is a Polar Bear's skin?",
+                options: ["Soft Pink", "Jet Black"],
                 correct: 1,
                 fact: "Polar bears have black skin to soak up the sun's warmth. Jua teaches us that true strength is quiet and warm.",
                 power: "Gentle Warmth! ☀️"
@@ -178,9 +217,9 @@
             {
                 phase: "The Trial of Shadows",
                 title: "Sabia’s Clever Path",
-                text: "Shadow-guards blocked the path! Sabia, the Marble Fox, let out a soft, tittering giggle from the trees. 'Being smart doesn't mean being loud. A clever voice is the kindest one!'",
+                text: "Shadow-guards blocked the path! Sabia, the Marble Fox, let out a soft giggle. 'Being smart doesn't mean being loud. A clever voice is the kindest one!'",
                 image: "images/7D31BC20-8BCC-422E-8A5F-2841FD1EEC37.png",
-                question: "Can a Marble Fox make a giggling sound to distract their enemies?",
+                question: "Can a Marble Fox giggle to distract enemies?",
                 options: ["Yes, they giggle!", "No, they only bark"],
                 correct: 0,
                 fact: "Foxes can make over 40 sounds, including a giggle! Sabia uses her wit to avoid conflict, just like Fuzzington.",
@@ -189,10 +228,10 @@
             {
                 phase: "The Climax",
                 title: "Jasiri’s Respect",
-                text: "At the Peak of Magum, Jasiri the Harpy Eagle landed with the force of a thunderclap. She was a magnificent, terrifying guardian; her 5-inch talons were thick as daggers, capable of crushing stone. But Jasiri did not use her strength to attack. She looked deep into Fuzzington's eyes, testing his sacrifice and his love for his father. 'True courage isn't the absence of fear,' she declared, 'but the will to overcome it for those you love.' Impressed by his resolve, she offered the healing plant.",
+                text: "At the Peak of Magum, Jasiri the Harpy Eagle landed with a thunderclap. Her talons were thick as daggers. She looked deep into Fuzzington's eyes. 'True courage is the will to overcome fear for those you love.'",
                 image: "images/98AA5D81-42DF-4394-9A5E-E3034BA38E44.png",
                 question: "How large can a Harpy Eagle's talons grow?",
-                options: ["As big as a Grizzly's claws", "As small as a kitten's"],
+                options: ["Up to 5 inches long", "Only 1 inch long"],
                 correct: 0,
                 fact: "Harpy Eagle talons can be 5 inches long! Jasiri is a stern guardian, but she respects Fuzzington’s quiet bravery.",
                 power: "The Ny-Gumi Plant! 🌿"
@@ -200,7 +239,7 @@
             {
                 phase: "Resolution",
                 title: "The Potion of Peace",
-                text: "Fuzzington offered kindness to Hofu, but she turned away, fleeing back into the deep trees for another time. Unwavering, Fuzzington brewed a potion from the Ny-Gumi plant and gave it to Heshima. The Golden Voice returned, and Paz was safe once more.",
+                text: "Fuzzington brewed a potion from the Ny-Gumi plant. The Golden Voice returned, and Paz was safe once more. Fuzzington was no longer just a cub—he was a hero.",
                 image: "images/E6C304A5-1CE8-4690-BC1E-DBDF1EEF0898.png"
             }
         ];
@@ -215,10 +254,10 @@
             const page = document.createElement('div');
             page.className = 'spread';
             
-            const bg = document.createElement('div');
-            bg.className = 'illustration-bg';
-            bg.style.backgroundImage = `url('${data.image}')`;
-            bg.style.backgroundColor = '#1a1a1a';
+            const bgContainer = document.createElement('div');
+            bgContainer.className = 'illustration-bg';
+            bgContainer.style.backgroundImage = `url('${data.image}')`;
+            bgContainer.innerHTML = '<div class="img-gradient"></div>';
             
             const content = document.createElement('div');
             content.className = 'content-overlay';
@@ -226,11 +265,11 @@
             let interactiveHTML = '';
             if (data.question) {
                 interactiveHTML = `
-                    <div id="quiz-box" class="mt-4 pt-4 border-t border-white/10 flex flex-col md:flex-row md:items-center gap-4">
-                        <p class="text-yellow-400 font-bold text-sm md:w-1/3">⭐ Challenge: ${data.question}</p>
-                        <div class="flex gap-2 md:w-2/3">
+                    <div id="quiz-box" class="mt-6 pt-6 border-t border-white/10">
+                        <p class="text-yellow-400 font-bold mb-4">⭐ Help Fuzzington: ${data.question}</p>
+                        <div class="space-y-3">
                             ${data.options.map((opt, i) => `
-                                <button onclick="handleAnswer(${i})" class="option-btn text-white flex-1">
+                                <button onclick="handleAnswer(${i})" class="option-btn text-white">
                                     ${opt}
                                 </button>
                             `).join('')}
@@ -240,22 +279,23 @@
             }
 
             content.innerHTML = `
-                <div class="flex items-center gap-3 mb-1">
-                    <p class="text-[10px] font-black tracking-[0.2em] text-yellow-500 uppercase">${data.phase}</p>
-                </div>
-                <h1 class="story-heading text-2xl md:text-3xl mb-2 text-white leading-tight">${data.title}</h1>
-                <p class="text-sm md:text-base leading-relaxed text-gray-200">${data.text}</p>
+                <p class="text-[11px] font-black tracking-[0.2em] text-yellow-500 uppercase mb-2">${data.phase}</p>
+                <h1 class="story-heading text-3xl mb-4 text-white leading-tight">${data.title}</h1>
+                <p class="text-lg leading-relaxed text-gray-200">${data.text}</p>
                 <div id="reward-zone"></div>
                 ${interactiveHTML}
             `;
 
-            page.appendChild(bg);
+            page.appendChild(bgContainer);
             page.appendChild(content);
             container.appendChild(page);
 
+            // Scroll to top of new page
+            page.scrollTop = 0;
+
             document.getElementById('progress').innerText = `${currentPage + 1} / ${story.length}`;
             document.getElementById('prevBtn').style.display = currentPage === 0 ? 'none' : 'block';
-            document.getElementById('nextBtn').innerText = currentPage === 0 ? 'Start Quest' : (currentPage === story.length - 1 ? 'Read Again' : 'Next');
+            document.getElementById('nextBtn').innerText = currentPage === 0 ? 'Start' : (currentPage === story.length - 1 ? 'Finish' : 'Next');
             
             const nextBtn = document.getElementById('nextBtn');
             nextBtn.disabled = !!data.question;
@@ -268,10 +308,10 @@
                 const zone = document.getElementById('reward-zone');
                 zone.innerHTML = `
                     <div class="fuzz-power">
-                        <div class="text-3xl">🎁</div>
+                        <div class="text-3xl">✨</div>
                         <div>
-                            <div class="text-sm font-black uppercase tracking-wider mb-1">Lesson Learned: ${data.power}</div>
-                            <div class="text-xs fact-text">Fuzz Fact: ${data.fact}</div>
+                            <div class="text-sm font-black uppercase tracking-wider">${data.power}</div>
+                            <div class="text-xs text-black/80 mt-1">${data.fact}</div>
                         </div>
                     </div>
                 `;
